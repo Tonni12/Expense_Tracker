@@ -51,7 +51,7 @@ def add_expense():
     date = input("Enter expense date(DD-MM-YYYY):\n")
     description = input("Enter expense description:\n")
     category = input("Enter expense category:\n")
-    amount = input("Enter expense amount:\n")
+    amount = input("Enter expense amount in GHS:\n")
 
     # writing to the csv file
     with open(CSV_PATH, "a") as csv_file:
@@ -74,7 +74,7 @@ def update_expense():
     date = input("Enter new expense date(DD-MM-YYYY):\n")
     description = input("Enter new expense description:\n")
     category = input("Enter new expense category:\n")
-    amount = input("Enter new expense amount:\n")
+    amount = input("Enter new expense amount in GHS:\n")
 
     # Updating the expense information in the csv file
     with open(CSV_PATH, "r") as csv_file:
