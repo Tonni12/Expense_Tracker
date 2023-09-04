@@ -1,31 +1,32 @@
 # coding=utf-8
 
 import csv
-project_name = 'Py Expense Tracker'
+project_name = 'Personal Expense Tracker'
 
 CSV_PATH = 'expense_data.csv'
 
+print("==============================================================")
+
+"""
+-> display the menu of options
+:return: menu of options
+"""
+print("<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>")
+print("WELCOME TO PERSONAL EXPENSE TRACKER HOME!!")
+print("""What would you like to do today?:
+         1. Add Expenses
+         2. Update Expenses
+         3. Delete Expenses 
+         4. View Expense Summary
+         5. Quit""")
+
+print("<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>")
 def main():
     """
 
     :return:
     """
-    print("==============================================================")
 
-    """
-    -> display the menu of options
-    :return: menu of options
-    """
-    print("<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>")
-    print("WELCOME TO PERSONAL EXPENSE TRACKER HOME!!")
-    print("""What would you like to do today?:
-           1. Add Expenses
-           2. Update Expenses
-           3. Delete Expenses 
-           4. View Expense Summary
-           5. Quit""")
-
-    print("<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>")
     option = input("Enter your option:\n")
     if option == '1':
         add_expense()
@@ -44,7 +45,6 @@ def add_expense():
     adds expense data to the program
     :return: float
     """
-    expense_id = input("Enter expense ID:\n")
     date = input("Enter expense date(DD-MM-YYYY):\n")
     description = input("Enter expense description:\n")
     category = input("Enter expense category:\n")
@@ -53,17 +53,13 @@ def add_expense():
     # writing to the csv file
     with open(CSV_PATH, "a") as csv_file:
         write_to = csv.writer(csv_file)
-        write_to.writerow([expense_id, date, description, category, amount])
-
-add_expense()
+        write_to.writerow([date, description, category, amount])
 
 def update_expense(date, description, category, amount):
     """
     Updates an expense in the CSV file.
     :return:
     """
-    expense_id = input("Enter expense ID:\n")
-
     with open('expense-data.csv', 'r') as csv_file:
         reader = csv.reader(csv_file, delimiter=',')
         data = list(reader)
@@ -89,7 +85,7 @@ def update_expense(date, description, category, amount):
 
     # find the expense to update
     for i, expense in enumerate(expenses_):
-        if expense[0] == expense_id:
+        if expense[0] == category:
             expenses_[i] = [date, description, category, amount]
             break
 
@@ -130,21 +126,19 @@ def delete_expense(date, description, category):
 
     new_data = []
     for row in data:
-        if row[0] != date or row[1] != description or row[2] != category:
-            new_data.append(row)
+        if row[0] == date or row[1] == description or row[2] == category:
+            new_data.remove(row)
 
     with open('expense_data.csv', 'w') as csv_file:
         writer = csv.writer(csv_file, delimiter=',')
         writer.writerows(new_data)
-
-delete_expense()
 
 def quit_app():
     """
     Quits the program
     :rtype: None
     """
-quit()
+    quit()
 
 
 if __name__ == "__main__":
